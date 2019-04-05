@@ -149,9 +149,9 @@ class IntlTelInput extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.value !== prevProps.value) {
-      this.updateFlagFromNumber(this.props.value);
-    }
+    // if (this.props.value !== prevProps.value) {
+    //   this.updateFlagFromNumber(this.props.value);
+    // }
 
     if (
       typeof this.props.customPlaceholder === 'function' &&
@@ -198,7 +198,7 @@ class IntlTelInput extends Component {
   setNumber = (number, preventFormat) => {
     // we must update the flag first, which updates this.selectedCountryData,
     // which is used for formatting the number before displaying it
-    this.updateFlagFromNumber(number);
+    // this.updateFlagFromNumber(number);
     this.updateValFromNumber(number, !preventFormat);
   };
 
@@ -476,7 +476,7 @@ class IntlTelInput extends Component {
 
     // if we already have a dial code we can go ahead and set the flag, else fall back to default
     if (this.getDialCode(val)) {
-      this.updateFlagFromNumber(val, true);
+      // this.updateFlagFromNumber(val, true);
     } else if (this.tempCountry !== 'auto') {
       // see if we should select a flag
       if (this.tempCountry) {
@@ -721,61 +721,61 @@ class IntlTelInput extends Component {
 
   // check if need to select a new flag based on the given number
   // Note: called from _setInitialState, keyup handler, setNumber
-  updateFlagFromNumber = (number, isInit) => {
-    // if we're in nationalMode and we already have US/Canada selected,
-    // make sure the number starts with a +1 so getDialCode will be
-    // able to extract the area code
-    // update: if we dont yet have selectedCountryData,
-    // but we're here (trying to update the flag from the number),
-    // that means we're initialising the plugin with a number that already
-    // has a dial code, so fine to ignore this bit
-    if (
-      number &&
-      this.nationalMode &&
-      this.selectedCountryData &&
-      this.selectedCountryData.dialCode === '1' &&
-      number.charAt(0) !== '+'
-    ) {
-      if (number.charAt(0) !== '1') {
-        number = `1${number}`;
-      }
-      number = `+${number}`;
-    }
+  // updateFlagFromNumber = (number, isInit) => {
+  //   // if we're in nationalMode and we already have US/Canada selected,
+  //   // make sure the number starts with a +1 so getDialCode will be
+  //   // able to extract the area code
+  //   // update: if we dont yet have selectedCountryData,
+  //   // but we're here (trying to update the flag from the number),
+  //   // that means we're initialising the plugin with a number that already
+  //   // has a dial code, so fine to ignore this bit
+  //   if (
+  //     number &&
+  //     this.nationalMode &&
+  //     this.selectedCountryData &&
+  //     this.selectedCountryData.dialCode === '1' &&
+  //     number.charAt(0) !== '+'
+  //   ) {
+  //     if (number.charAt(0) !== '1') {
+  //       number = `1${number}`;
+  //     }
+  //     number = `+${number}`;
+  //   }
 
-    // try and extract valid dial code from input
-    const dialCode = this.getDialCode(number);
-    let countryCode = null;
+  //   // try and extract valid dial code from input
+  //   const dialCode = this.getDialCode(number);
+  //   let countryCode = null;
 
-    if (dialCode) {
-      // check if one of the matching countries is already selected
-      const countryCodes = this.countryCodes[utils.getNumeric(dialCode)];
-      const alreadySelected =
-        this.selectedCountryData &&
-        countryCodes.indexOf(this.selectedCountryData.iso2) !== -1;
+  //   if (dialCode) {
+  //     // check if one of the matching countries is already selected
+  //     const countryCodes = this.countryCodes[utils.getNumeric(dialCode)];
+  //     const alreadySelected =
+  //       this.selectedCountryData &&
+  //       countryCodes.indexOf(this.selectedCountryData.iso2) !== -1;
 
-      // if a matching country is not already selected
-      // (or this is an unknown NANP area code): choose the first in the list
-      if (!alreadySelected || this.isUnknownNanp(number, dialCode)) {
-        // if using onlyCountries option, countryCodes[0] may be empty,
-        // so we must find the first non-empty index
-        for (let j = 0; j < countryCodes.length; j++) {
-          if (countryCodes[j]) {
-            countryCode = countryCodes[j];
-            break;
-          }
-        }
-      }
-    } else if (number.charAt(0) === '+' && utils.getNumeric(number).length) {
-      // invalid dial code, so empty
-      // Note: use getNumeric here because the number has not been
-      // formatted yet, so could contain bad chars
-      countryCode = null;
-    }
+  //     // if a matching country is not already selected
+  //     // (or this is an unknown NANP area code): choose the first in the list
+  //     if (!alreadySelected || this.isUnknownNanp(number, dialCode)) {
+  //       // if using onlyCountries option, countryCodes[0] may be empty,
+  //       // so we must find the first non-empty index
+  //       for (let j = 0; j < countryCodes.length; j++) {
+  //         if (countryCodes[j]) {
+  //           countryCode = countryCodes[j];
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   } else if (number.charAt(0) === '+' && utils.getNumeric(number).length) {
+  //     // invalid dial code, so empty
+  //     // Note: use getNumeric here because the number has not been
+  //     // formatted yet, so could contain bad chars
+  //     countryCode = null;
+  //   }
 
-    if (countryCode !== null) {
-      this.setFlag(countryCode, isInit);
-    }
-  };
+  //   if (countryCode !== null) {
+  //     this.setFlag(countryCode, isInit);
+  //   }
+  // };
 
   // filter the given countries using the process function
   filterCountries = (countryArray, processFunc) => {
@@ -1200,7 +1200,7 @@ class IntlTelInput extends Component {
           cursorPosition,
         },
         () => {
-          this.updateFlagFromNumber(value);
+          // this.updateFlagFromNumber(value);
           this.notifyPhoneNumberChange(value);
         }
       );
@@ -1211,7 +1211,7 @@ class IntlTelInput extends Component {
           cursorPosition,
         },
         () => {
-          this.updateFlagFromNumber(value);
+          // this.updateFlagFromNumber(value);
           this.notifyPhoneNumberChange(value);
         }
       );
@@ -1220,7 +1220,7 @@ class IntlTelInput extends Component {
 
   handlePaste = e => {
     if (e.clipboardData) {
-      this.updateFlagFromNumber(e.clipboardData.getData('Text'), false);
+      // this.updateFlagFromNumber(e.clipboardData.getData('Text'), false);
     }
   };
 
