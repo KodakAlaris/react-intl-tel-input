@@ -106,7 +106,7 @@ export default class CountryList extends Component {
 
           <span className="country-name">{country.name}</span>
           <span className="dial-code">
-+
+            +
             {country.dialCode}
           </span>
         </li>
@@ -125,12 +125,14 @@ export default class CountryList extends Component {
   render() {
     let options = '';
     const preferredCountries = this.props.preferredCountries;
+
     let preferredOptions = null;
     const countries = this.props.countries;
     const className = classNames({
       'country-list': true,
       hide: !this.props.showDropdown,
     });
+
     let divider = null;
 
     if (preferredCountries.length) {

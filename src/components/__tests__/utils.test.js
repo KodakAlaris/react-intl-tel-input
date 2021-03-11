@@ -5,6 +5,7 @@ import utils from '../utils';
 describe('utils', () => {
   it('arraysEqual', () => {
     let a = [1, 2, 3];
+
     let b = a;
 
     expect(utils.arraysEqual(a, b)).toBeTruthy();
@@ -24,6 +25,7 @@ describe('utils', () => {
 
   it('shallowEquals', () => {
     let a = [1, 2, 3];
+
     let b = a;
 
     expect(utils.shallowEquals(a, b)).toBeTruthy();
@@ -170,6 +172,7 @@ describe('utils', () => {
 
   it('findIndex', () => {
     let array = [];
+
     let predicate = () => true;
 
     expect(utils.findIndex(array, predicate)).toEqual(-1);
@@ -187,7 +190,9 @@ describe('utils', () => {
 
   it('getCursorPositionAfterFormating', () => {
     let previousStringBeforeCursor = '9123';
+
     let previousString = '912345';
+
     let nextString = '912345';
 
     expect(
