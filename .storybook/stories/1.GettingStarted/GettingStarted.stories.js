@@ -37,5 +37,7 @@ storiesOf('Documentation', module)
             onPhoneNumberBlur={onBlur()}
           />,
           document.getElementById('root'),
-      );`,
+      );
+      ~~~
+        `,
   },});
